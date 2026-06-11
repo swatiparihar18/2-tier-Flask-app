@@ -1,0 +1,6 @@
+mysql-data/
+__pycache__/
+*.log
+venv/
+.env
+

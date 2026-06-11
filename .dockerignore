@@ -1,0 +1,5 @@
+mysql-data
+*.log
+__pycache__
+.git
+venv
