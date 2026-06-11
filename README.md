@@ -1,130 +1,183 @@
- 
-# Flask App with MySQL Docker Setup
+# 🚀 2-Tier Flask Application | DevOps Project
 
-This is a simple Flask app that interacts with a MySQL database. The app allows users to submit messages, which are then stored in the database and displayed on the frontend.
+## 🌐 Live Demo
 
-## Prerequisites
+Application URL:
 
-Before you begin, make sure you have the following installed:
+http://13.60.190.11:5000/
 
-- Docker
-- Git (optional, for cloning the repository)
+---
 
-## Setup
+A containerized 2-Tier Application built using Flask and MySQL, demonstrating modern DevOps practices including Dockerization, container orchestration, infrastructure deployment, and application management on Linux servers.
 
-1. Clone this repository (if you haven't already):
+## 📌 Project Overview
 
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   ```
+This project follows a **2-Tier Architecture** where:
 
-2. Navigate to the project directory:
+* **Tier 1:** Flask Web Application
+* **Tier 2:** MySQL Database
 
-   ```bash
-   cd your-repo-name
-   ```
+The application is fully containerized using Docker and deployed on a Linux server, showcasing practical DevOps skills such as container management, networking, deployment automation, and troubleshooting.
 
-3. Create a `.env` file in the project directory to store your MySQL environment variables:
+---
 
-   ```bash
-   touch .env
-   ```
+## 🏗️ Architecture
 
-4. Open the `.env` file and add your MySQL configuration:
+```text
+                    ┌─────────────────┐
+                    │     Users       │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │  Flask App      │
+                    │ Docker Container│
+                    └────────┬────────┘
+                             │
+                    Docker Network
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │   MySQL DB      │
+                    │ Docker Container│
+                    └─────────────────┘
+```
 
-   ```
-   MYSQL_HOST=mysql
-   MYSQL_USER=your_username
-   MYSQL_PASSWORD=your_password
-   MYSQL_DB=your_database
-   ```
+---
 
-## Usage
+## 🛠️ Tech Stack
 
-1. Start the containers using Docker Compose:
+### Application Layer
 
-   ```bash
-   docker-compose up --build
-   ```
+* Python
+* Flask
 
-2. Access the Flask app in your web browser:
+### Database Layer
 
-   - Frontend: http://localhost
-   - Backend: http://localhost:5000
+* MySQL
 
-3. Create the `messages` table in your MySQL database:
+### DevOps Tools
 
-   - Use a MySQL client or tool (e.g., phpMyAdmin) to execute the following SQL commands:
-   
-     ```sql
-     CREATE TABLE messages (
-         id INT AUTO_INCREMENT PRIMARY KEY,
-         message TEXT
-     );
-     ```
+* Docker
+* Docker Compose
+* Git
+* GitHub
 
-4. Interact with the app:
+### Platform
 
-   - Visit http://localhost to see the frontend. You can submit new messages using the form.
-   - Visit http://localhost:5000/insert_sql to insert a message directly into the `messages` table via an SQL query.
+* Linux (Ubuntu)
+* AWS EC2
 
-## Cleaning Up
+---
 
-To stop and remove the Docker containers, press `Ctrl+C` in the terminal where the containers are running, or use the following command:
+## 🔥 DevOps Practices Implemented
+
+✅ Containerization using Docker
+
+✅ Multi-container deployment using Docker Compose
+
+✅ Service-to-Service Communication
+
+✅ Docker Networking
+
+✅ Infrastructure Deployment on AWS EC2
+
+✅ Linux Server Administration
+
+✅ Version Control using Git & GitHub
+
+✅ Container Monitoring and Troubleshooting
+
+✅ Persistent Database Storage
+
+---
+
+## 📂 Project Structure
+
+```text
+2-tier-flask-app/
+│
+├── app.py
+├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
+├── templates/
+├── static/
+└── README.md
+```
+
+---
+
+## 🐳 Docker Implementation
+
+### Build Images
+
+```bash
+docker-compose build
+```
+
+### Start Containers
+
+```bash
+docker-compose up -d
+```
+
+### Verify Running Containers
+
+```bash
+docker ps
+```
+
+### View Logs
+
+```bash
+docker-compose logs -f
+```
+
+### Stop Services
 
 ```bash
 docker-compose down
 ```
 
-## To run this two-tier application using  without docker-compose
+---
 
-- First create a docker image from Dockerfile
-```bash
-docker build -t flaskapp .
-```
+## ☁️ AWS Deployment
 
-- Now, make sure that you have created a network using following command
-```bash
-docker network create twotier
-```
+The application was deployed on an AWS EC2 Ubuntu instance.
 
-- Attach both the containers in the same network, so that they can communicate with each other
+### Deployment Workflow
 
-i) MySQL container 
-```bash
-docker run -d \
-    --name mysql \
-    -v mysql-data:/var/lib/mysql \
-    --network=twotier \
-    -e MYSQL_DATABASE=mydb \
-    -e MYSQL_ROOT_PASSWORD=admin \
-    -p 3306:3306 \
-    mysql:5.7
+1. Launch EC2 Instance
+2. Configure Security Groups
+3. Install Docker & Docker Compose
+4. Clone GitHub Repository
+5. Build Docker Images
+6. Start Containers
+7. Access Application via Public IP
 
-```
-ii) Backend container
-```bash
-docker run -d \
-    --name flaskapp \
-    --network=twotier \
-    -e MYSQL_HOST=mysql \
-    -e MYSQL_USER=root \
-    -e MYSQL_PASSWORD=admin \
-    -e MYSQL_DB=mydb \
-    -p 5000:5000 \
-    flaskapp:latest
+---
 
-```
+## 📈 Key Learning Outcomes
 
-## Notes
+* Containerized Application Deployment
+* Docker Networking Concepts
+* Linux Administration
+* AWS EC2 Management
+* Troubleshooting Container Issues
+* Infrastructure Setup and Management
+* Version Control Workflows
+* Application Deployment Lifecycle
 
-- Make sure to replace placeholders (e.g., `your_username`, `your_password`, `your_database`) with your actual MySQL configuration.
+---
 
-- This is a basic setup for demonstration purposes. In a production environment, you should follow best practices for security and performance.
+## 🔮 Future Enhancements
 
-- Be cautious when executing SQL queries directly. Validate and sanitize user inputs to prevent vulnerabilities like SQL injection.
+* CI/CD Pipeline using Jenkins
+* GitHub Actions Integration
+* Kubernetes Deployment
+* Monitoring with Prometheus & Grafana
+* Nginx Reverse Proxy
+* Infrastructure as Code using Terraform
 
-- If you encounter issues, check Docker logs and error messages for troubleshooting.
-
-```
-
+---
